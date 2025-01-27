@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Camera/CameraComponent.h";
+#include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
 #include "SCharacter.generated.h"
 
-class UCameraComponent;
-class USpringArmComponent;
+
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
 
 public:
 	// Sets default values for this character's properties
@@ -25,8 +25,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	USpringArmComponent* SptingArmComp;
-
+	UPROPERTY(BlueprintReadWrite)
+	USpringArmComponent* SpringArmComp;
+	UPROPERTY(EditAnywhere)
 	UCameraComponent* CameraComp;
 
 public:	

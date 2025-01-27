@@ -9,11 +9,11 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SpringArmComp = CreateDefaultSybObject<USpringArmComponent>("SptingArmComponent");
-	SpringArmComp = SetupAttachment(GetRootComponent());
+	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SptingArmComponent");
+	SpringArmComp->SetupAttachment(GetRootComponent());
 
-	CameraComp = CreateDefaultSybObject<UCameraComponent>("CameraComponent");
-	CameraComp = SetupAttachment(SpringArmComp);
+	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
+	CameraComp->SetupAttachment(SpringArmComp);
 }
 
 // Called when the game starts or when spawned
