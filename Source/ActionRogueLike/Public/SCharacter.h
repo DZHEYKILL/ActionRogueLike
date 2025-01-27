@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/ArrowComponent.h"
 
 #include "SCharacter.generated.h"
 
@@ -29,6 +31,12 @@ protected:
 	USpringArmComponent* SpringArmComp;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UCameraComponent* CameraComp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UArrowComponent* CameraArrow;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	FVector CameraForwardVector;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	FVector CameraRightVector;
 
 public:	
 	// Called every frame
