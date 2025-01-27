@@ -18,8 +18,7 @@ ASCharacter::ASCharacter()
 
 	CameraArrow = CreateDefaultSubobject<UArrowComponent>("ArrowCamera");
 	CameraArrow->SetupAttachment(SpringArmComp);
-	CameraArrow->SetRelativeLocation(FVector(400.0f, 0.0f, -20.0f));
-	CameraArrow->GetComponentRotation();
+	CameraArrow->SetRelativeLocation(FVector(300.0f, 0.0f, -100.0f));
 	CameraArrow->bHiddenInGame = false;
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -61,41 +60,49 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void ASCharacter::MoveForward(float Input)
 {
+	//CameraForwardVector = CameraArrow->GetForwardVector();
 
+	FVector CameraForwardVectorM = CameraForwardVector;
+	CameraForwardVectorM.Z = 0.0f;
+	CameraForwardVectorM.Normalize();
+	/* ѕосле обнулени€ Z компоненты вектор может стать неединичным 
+	(его длина может быть меньше или больше 1). 
+	ƒл€ корректной работы системы движени€ (AddMovementInput),
+	вектор должен быть нормализован, чтобы его длина всегда была равна 1.
+	Ёто делаетс€ вызовом CameraForwardVector.Normalize();.*/
+
+	AddMovementInput(CameraForwardVectorM, Input, false);
 	/*
 	FRotator ControlRotation = GetControlRotation();
 	ControlRotation.Pitch = 0.0f;
 	ControlRotation.Roll = 0.0f;
 	*/
-
-	CameraForwardVector = CameraArrow->GetForwardVector();
-	CameraForwardVector.Z = 0.0f;
-	CameraForwardVector.Normalize();
-
-	AddMovementInput(CameraForwardVector, Input, false);
 }
 
 void ASCharacter::MoveRight(float Input)
 {
+	//CameraRightVector = CameraArrow->GetRightVector();
+
+	AddMovementInput(CameraRightVector, Input, false);
 	/*
 	FRotator ControlRotation = GetControlRotation();
 	ControlRotation.Pitch = 0.0f;
 	ControlRotation.Roll = 0.0f;
 	FVector RightVector = FRotationMatrix(ControlRotation).GetScaledAxis(EAxis::Y);
 	*/
-
-
-	CameraRightVector = CameraArrow->GetRightVector();
-	AddMovementInput(CameraRightVector, Input, false);
 }
 
 void ASCharacter::LookUp(float Input)
 {
+	CameraForwardVector = CameraArrow->GetForwardVector();
+	CameraRightVector = CameraArrow->GetRightVector();
 	AddControllerPitchInput(Input);
 }
 
 void ASCharacter::Turn(float Input)
 {
+	CameraForwardVector = CameraArrow->GetForwardVector();
+	CameraRightVector = CameraArrow->GetRightVector();
 	AddControllerYawInput(Input);
 }
 
