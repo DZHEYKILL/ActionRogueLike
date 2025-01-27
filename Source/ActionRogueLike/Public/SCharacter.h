@@ -18,6 +18,11 @@ class ACTIONROGUELIKE_API ASCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	TSubclassOf<AActor> ProjectileClass;
+
 
 public:
 	// Sets default values for this character's properties
@@ -38,6 +43,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	FVector CameraRightVector;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -45,11 +51,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//Movement
 	void MoveForward(float Input);
 	void MoveRight(float Input);
 
 	void LookUp(float Input);
 	void Turn(float Input);
 	
-
+	//Combat
+	void PrimaryAttack();
 };

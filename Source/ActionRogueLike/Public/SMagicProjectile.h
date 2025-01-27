@@ -21,8 +21,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* SphereComp;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* MovementComp;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UParticleSystemComponent* EffectComp;
 

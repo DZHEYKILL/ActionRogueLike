@@ -10,10 +10,17 @@ ASMagicProjectile::ASMagicProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>("SphereComp");
+	SphereComp->SetCollisionObjectType(ECC_WorldDynamic);
 	RootComponent = SphereComp;
 
-	//EffectComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
-	//MovementComp->InitialSpeed = 1000.f;
+	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
+	EffectComp->SetupAttachment(SphereComp);
+
+	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
+	MovementComp->InitialSpeed = 1500.f;
+	MovementComp->bRotationFollowsVelocity = true;
+	MovementComp->bInitialVelocityInLocalSpace = true;
+	MovementComp->ProjectileGravityScale = 0.0f;
 
 
 }

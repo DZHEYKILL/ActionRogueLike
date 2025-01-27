@@ -33,6 +33,7 @@ void ASCharacter::BeginPlay()
 	
 }
 
+
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -48,20 +49,18 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASCharacter::MoveRight);
 
+	PlayerInputComponent->BindAction("Jump",IE_Pressed, this, &ASCharacter::Jump);
 
 	PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::LookUp);
 	PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::Turn);
 
-
-	PlayerInputComponent->BindAction("Jump",IE_Pressed, this, &ASCharacter::Jump);
+	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 
 
 }
 
 void ASCharacter::MoveForward(float Input)
 {
-	//CameraForwardVector = CameraArrow->GetForwardVector();
-
 	FVector CameraForwardVectorM = CameraForwardVector;
 	CameraForwardVectorM.Z = 0.0f;
 	CameraForwardVectorM.Normalize();
@@ -81,8 +80,6 @@ void ASCharacter::MoveForward(float Input)
 
 void ASCharacter::MoveRight(float Input)
 {
-	//CameraRightVector = CameraArrow->GetRightVector();
-
 	AddMovementInput(CameraRightVector, Input, false);
 	/*
 	FRotator ControlRotation = GetControlRotation();
@@ -96,13 +93,26 @@ void ASCharacter::LookUp(float Input)
 {
 	CameraForwardVector = CameraArrow->GetForwardVector();
 	CameraRightVector = CameraArrow->GetRightVector();
+
 	AddControllerPitchInput(Input);
 }
-
 void ASCharacter::Turn(float Input)
 {
 	CameraForwardVector = CameraArrow->GetForwardVector();
 	CameraRightVector = CameraArrow->GetRightVector();
+
 	AddControllerYawInput(Input);
+}
+void ASCharacter::PrimaryAttack()
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+
+	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	
+	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
 
