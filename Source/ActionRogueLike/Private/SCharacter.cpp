@@ -35,5 +35,33 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ASCharacter::MoveRight);
+
+
+	PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::LookUp);
+	PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::Turn);
+
+
+}
+
+void ASCharacter::MoveForward(float Input)
+{
+	AddMovementInput(GetActorForwardVector(), Input, false);
+}
+
+void ASCharacter::MoveRight(float Input)
+{
+	AddMovementInput(GetActorRightVector(), Input, false);
+}
+
+void ASCharacter::LookUp(float Input)
+{
+	AddControllerPitchInput(Input);
+}
+
+void ASCharacter::Turn(float Input)
+{
+	AddControllerYawInput(Input);
 }
 

@@ -25,9 +25,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Components")
 	USpringArmComponent* SpringArmComp;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UCameraComponent* CameraComp;
 
 public:	
@@ -36,5 +36,12 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void MoveForward(float Input);
+	void MoveRight(float Input);
+
+	void LookUp(float Input);
+	void Turn(float Input);
+	
 
 };
