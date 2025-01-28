@@ -32,3 +32,23 @@ void USInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	// ...
 }
 
+void USInteractionComponent::PrimaryInteract()
+{
+	AActor* Owner = GetOwner();
+	FVector EyeLocation;
+	FRotator EyeRotation;
+	Owner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
+
+	FHitResult Hit;
+	FVector Start = Owner->GetActorLocation();
+	FVector End = EyeLocation + (EyeRotation.Vector()*1000);		//Character->GetCameraForward();//(MyOwner->GetActorLocation() + MyOwner->GetActorForwardVector()) * 400;
+	
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+
+	//GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation,End,ObjectQueryParams);
+	
+
+}
+

@@ -60,4 +60,7 @@ public:
 	
 	//Combat
 	void PrimaryAttack();
+
+	//Geters
+	FVector GetCameraForward();
 };

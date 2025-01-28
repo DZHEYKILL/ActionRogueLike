@@ -116,3 +116,8 @@ void ASCharacter::PrimaryAttack()
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
 
+FVector ASCharacter::GetCameraForward()
+{
+	return CameraForwardVector;
+}
+

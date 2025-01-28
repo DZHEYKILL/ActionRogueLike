@@ -32,6 +32,7 @@ void ASItemaChest::Tick(float DeltaTime)
 }
 void ASItemaChest::Interact_Implementation(APawn* InstigatorPawn)
 {
-
+	Hat->SetRelativeLocation(FVector(-100, 0, 30));
+	Hat->SetRelativeRotation(FRotator(360, 25, 360));
 }
 
