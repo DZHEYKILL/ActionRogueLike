@@ -42,13 +42,29 @@ void USInteractionComponent::PrimaryInteract()
 
 	FHitResult Hit;
 	FVector Start = Owner->GetActorLocation();
-	FVector End = EyeLocation + (EyeRotation.Vector()*1000);		//Character->GetCameraForward();//(MyOwner->GetActorLocation() + MyOwner->GetActorForwardVector()) * 400;
+	FVector End = EyeLocation + (EyeRotation.Vector()*1000);//Character->GetCameraForward();//(MyOwner->GetActorLocation() + MyOwner->GetActorForwardVector()) * 400;
 	
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 
-	//GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation,End,ObjectQueryParams);
+	GetWorld()->LineTraceSingleByObjectType(
+		Hit, 
+		EyeLocation,
+		End, 
+		ObjectQueryParams
+		);
 	
+	AActor* HitActor = Hit.GetActor();
+	if (HitActor)
+	{
+		if (HitActor->Implements<ISGameplayInterface>())
+		{
+			APawn* MyPawn = Cast<APawn>(Owner);
 
+			ISGameplayInterface::Execute_Interact(HitActor, MyPawn);
+		};
+
+	};
+	
 }
 
