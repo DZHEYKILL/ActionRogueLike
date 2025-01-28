@@ -57,12 +57,15 @@ void USInteractionComponent::PrimaryInteract()
 	AActor* HitActor = Hit.GetActor();
 	if (HitActor)
 	{
+
+		
 		if (HitActor->Implements<ISGameplayInterface>())
 		{
 			APawn* MyPawn = Cast<APawn>(Owner);
 
 			ISGameplayInterface::Execute_Interact(HitActor, MyPawn);
 		};
+		
 
 	};
 	

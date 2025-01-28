@@ -26,7 +26,6 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	ASCharacter* Character = Cast<ASCharacter>(Owner);
-
 	*/
 protected:
 	// Called when the game starts
