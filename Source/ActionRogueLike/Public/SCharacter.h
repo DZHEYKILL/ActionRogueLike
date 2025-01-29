@@ -8,6 +8,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/ArrowComponent.h"
+#include "TimerManager.h"
+#include "SInteractionComponent.h"
 
 #include "SCharacter.generated.h"
 
@@ -43,6 +45,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	FVector CameraRightVector;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	USInteractionComponent* InteractComp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
+	UAnimMontage* AttackAnim;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
+	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:	
 	// Called every frame
@@ -60,6 +68,8 @@ public:
 	
 	//Combat
 	void PrimaryAttack();
+	void PrimaryInteract();
+	void PrimaryAttack_TimeElapsed();
 
 	//Geters
 	FVector GetCameraForward();

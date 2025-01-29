@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "SCharacter.h"
 #include "SGameplayInterface.h"
 
 #include "SInteractionComponent.generated.h"

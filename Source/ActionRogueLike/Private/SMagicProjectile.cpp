@@ -22,7 +22,17 @@ ASMagicProjectile::ASMagicProjectile()
 	MovementComp->bInitialVelocityInLocalSpace = true;
 	MovementComp->ProjectileGravityScale = 0.0f;
 
+	OnActorHit.AddDynamic(this, &ASMagicProjectile::OnHit);
 
+}
+
+void ASMagicProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (this)
+	{
+		this->Destroy();
+
+	}
 }
 
 // Called when the game starts or when spawned
