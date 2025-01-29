@@ -2,6 +2,7 @@
 
 
 #include "SCharacter.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -137,7 +138,9 @@ void ASCharacter::PrimaryAttack_TimeElapsed()
 {
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
-	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	FRotator Rotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), GetActorLocation() + CameraForwardVector);
+
+	FTransform SpawnTM = FTransform(Rotation, HandLocation);
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
