@@ -2,6 +2,8 @@
 
 
 #include "SMagicProjectile.h"
+#include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystem.h"
 
 // Sets default values
 ASMagicProjectile::ASMagicProjectile()
@@ -16,11 +18,16 @@ ASMagicProjectile::ASMagicProjectile()
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
 
+	HitEffectComp = CreateDefaultSubobject< UParticleSystemComponent>("HitEffectComp");
+	HitEffectComp->SetupAttachment(SphereComp);
+
 	MovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
-	MovementComp->InitialSpeed = 1500.f;
+	MovementComp->InitialSpeed = 1500.0f;
 	MovementComp->bRotationFollowsVelocity = true;
 	MovementComp->bInitialVelocityInLocalSpace = true;
 	MovementComp->ProjectileGravityScale = 0.0f;
+
+
 
 	OnActorHit.AddDynamic(this, &ASMagicProjectile::OnHit);
 
@@ -30,8 +37,9 @@ void ASMagicProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector Nor
 {
 	if (this)
 	{
+		HitEffectComp->Activate();
+		UE_LOG(LogTemp, Warning, TEXT("Particle effect activated at location: %s"));
 		this->Destroy();
-
 	}
 }
 

@@ -27,6 +27,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UParticleSystemComponent* EffectComp;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UParticleSystemComponent* HitEffectComp;
 
 	UFUNCTION(BlueprintCallable)
 	void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
