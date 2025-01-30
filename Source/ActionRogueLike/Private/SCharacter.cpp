@@ -3,6 +3,7 @@
 
 #include "SCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "SAttributeComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -10,6 +11,7 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//Base Components
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>("SptingArmComponent");
 	SpringArmComp->SetupAttachment(GetRootComponent());
 	SpringArmComp->bUsePawnControlRotation = true;
@@ -22,8 +24,11 @@ ASCharacter::ASCharacter()
 	CameraArrow->SetRelativeLocation(FVector(300.0f, 0.0f, -100.0f));
 	CameraArrow->bHiddenInGame = false;
 
+	//Custom Components
 	InteractComp = CreateDefaultSubobject<USInteractionComponent>("InteractComp");
+	AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
 
+	//Default Values
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
 

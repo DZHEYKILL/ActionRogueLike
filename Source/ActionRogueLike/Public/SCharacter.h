@@ -13,7 +13,7 @@
 
 #include "SCharacter.generated.h"
 
-
+class USAttributeComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -43,7 +43,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	FVector CameraForwardVector;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	FVector CameraRightVector;
+	FVector CameraRightVector;	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
+	USAttributeComponent* AttributeComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	USInteractionComponent* InteractComp;
