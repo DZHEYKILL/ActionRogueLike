@@ -136,11 +136,31 @@ void ASCharacter::PrimaryInteract()
 
 void ASCharacter::PrimaryAttack_TimeElapsed()
 {
+
+	FCollisionShape Shape;
+	Shape.SetSphere(20.0f);
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjParams;
+	ObjParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjParams.AddObjectTypesToQuery(ECC_Pawn);
+
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 10000);
+	FHitResult Hit;
+	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity,ObjParams,Shape,Params))
+	{
+		TraceEnd = Hit.ImpactPoint;
+	}
+
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
-	FRotator Rotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), GetActorLocation() + CameraForwardVector);
+	FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
 
-	FTransform SpawnTM = FTransform(Rotation, HandLocation);
+	FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
