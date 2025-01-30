@@ -170,8 +170,11 @@ void ASCharacter::PrimaryAttack_TimeElapsed()
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-
+	if (Hit.GetActor() != GetOwner())
+	{
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+
+	}
 }
 
 FVector ASCharacter::GetCameraForward()
